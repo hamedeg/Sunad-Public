@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% extends "frontend/front_base.html" %}
+{% load static %}
+{% block main %}
+
+    <div class="container position-relative">
+      <div class="row align-items-center">
+        <div class="col-md-5 col-lg-6 order-md-1 pt-8"><img class="img-fluid" src="{% static 'frontend/img/illustrations/hero-header.png' %}" alt="" /></div>
+        <div class="col-md-7 col-lg-6 text-center text-md-start pt-5 pt-md-9">
+          {% for message in messages %}
+          <div class="dj_msg alert alert-danger alert-dismissible fade show" role="alert">
+            {{message}}
+          </div>
+          {% endfor %}
+          <h1 class="mb-4 display-3 fw-bold">وَمَنْ أَحْيَاهَا فَكَأَنَّمَا أَحْيَا النَّاسَ جَمِيعًا </h1>
+            <a class="btn btn-lg btn-primary rounded-pill hover-top" href="{% url 'home_page:add_customer' %}" role="button">إطلب السند</a>
+        </div>
+      </div>
+    </div>
+
+  {% endblock %}

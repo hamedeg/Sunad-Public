@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+{% extends "frontend/front_base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+  {% block main %}
+    <div class="container position-relative">
+      <div class="row align-items-center">
+        <div class="col-md-12 order-md-1 pt-8">
+          <div class="card">
+            <div class="card-header">
+              تعديل بيانات
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">
+                {% for message in messages %}
+                <div class="dj_msg alert alert-danger alert-dismissible fade show" role="alert">
+                  {{message}}
+                </div>
+                {% endfor %}
+              </h5>
+              <p class="card-text">
+                <form class="row g-3 needs-validation" enctype="multipart/form-data" method="post" autocomplete="off" novalidate>
+                  {% csrf_token %}
+                  <div class="col-6">
+                    {{form.support | as_crispy_field}}
+                  </div>
+                  <div class="col-6">
+                    {{form.status | as_crispy_field}}
+                  </div>
+                  <div class="col-6">
+                    {{form.name | as_crispy_field}}
+                  </div>
+                  <div class="col-6">
+                    {{form.ssn | as_crispy_field}}
+                  </div>
+                  <div class="col-12">
+                    {{form.address | as_crispy_field}}
+                  </div>
+                  <div class="col-md-4">
+                    {{form.gender | as_crispy_field}}
+                  </div>
+                  <div class="col-md-4">
+                    {{form.partner_alive | as_crispy_field}}
+                  </div>
+                  <div class="col-md-4">
+                    {{form.number_children | as_crispy_field}}
+                  </div>
+                  <div class="col-md-4">
+                    {{form.number_brother | as_crispy_field}}
+                  </div>
+                  <div class="col-md-4">
+                    {{form.help_type | as_crispy_field}}
+                  </div>
+                  <div class="row">
+                    <div class="col-md-8">
+                      {{form.comment | as_crispy_field}}
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-primary">إرسال الطلب</button>
+                  </div>
+                </form>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endblock %}

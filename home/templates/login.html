@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% extends "frontend/front_base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+  {% block main %}
+    <div class="container position-relative">
+      <div class="row align-items-center">
+        <div class="col-md-12 order-md-1 pt-8">
+          <div class="card">
+            <div class="card-header">
+              دخول الي النظام
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">
+                {% for message in messages %}
+                <div class="dj_msg alert alert-danger alert-dismissible fade show" role="alert">
+                  {{message}}
+                </div>
+                {% endfor %}
+              </h5>
+              <p class="card-text">
+                <form method="post">
+                  {%csrf_token%}
+                  <div class="mb-3">
+                    <label for="username" class="form-label">البريد الإلكتروني</label>
+                    <input type="email" class="form-control" name="username" id="username" aria-describedby="emailHelp" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="password" class="form-label">كلمة المرور</label>
+                    <input type="password" class="form-control" name="password" id="password" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary">دخول</button>
+                </form>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endblock %}

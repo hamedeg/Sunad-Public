@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+{% extends "frontend/front_base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+  {% block main %}
+    <div class="container position-relative">
+      <div class="row align-items-center">
+        <div class="col-md-12 order-md-1 pt-8">
+          <div class="card">
+            <div class="card-header">
+              بيانات مطلوبة علشان نقدر نساعدك
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">
+                {% for message in messages %}
+                <div class="dj_msg alert alert-danger alert-dismissible fade show" role="alert">
+                  {{message}}
+                </div>
+                {% endfor %}
+              </h5>
+              <p class="card-text">
+                <form class="row g-3 needs-validation" enctype="multipart/form-data" method="post" autocomplete="off" novalidate>
+                  {% csrf_token %}
+                  <div class="col-6">
+                    {{form.name | as_crispy_field}}
+                  </div>
+                  <div class="col-6">
+                    {{form.ssn | as_crispy_field}}
+                  </div>
+                  <div class="col-12">
+                    {{form.address | as_crispy_field}}
+                  </div>
+                  <div class="col-md-4">
+                    {{form.gender | as_crispy_field}}
+                  </div>
+                  <div class="col-md-4">
+                    {{form.partner_alive | as_crispy_field}}
+                  </div>
+                  <div class="col-md-4">
+                    {{form.number_children | as_crispy_field}}
+                  </div>
+                  <div class="col-md-4">
+                    {{form.number_brother | as_crispy_field}}
+                  </div>
+                  <div class="col-md-4">
+                    {{form.help_type | as_crispy_field}}
+                  </div>                  
+                  <div class="row">
+                    <div class="col-md-4">
+                      {{attach.attachments | as_crispy_field}}
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item disabled" aria-disabled="true">شهادة ميلادك او بطاقة الرقم القومي</li>
+                        <li class="list-group-item disabled" aria-disabled="true">شهادة ميلاد او وفاة الزوج او الزوجه ان وجد</li>
+                        <li class="list-group-item disabled" aria-disabled="true">شهادة ميلاد الاولاد ان وجد</li>
+                        <li class="list-group-item disabled" aria-disabled="true">شهادة ميلاد الاخوات ان وجد</li>
+                        <li class="list-group-item disabled" aria-disabled="true">التحاليل او الاشعه او التقارير الطبيه في حالة الحاجه الي ادوية</li>
+                      </ul>
+                    </div>
+                    <div class="col-md-8">
+                      {{form.comment | as_crispy_field}}
+                    </div>
+                  </div>
+                  <input type="hidden" name="support" value="0">
+                  <input type="hidden" name="status" value="hold">
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-primary">إرسال الطلب</button>
+                  </div>
+                </form>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript">
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+  </script>
+  {% endblock %}

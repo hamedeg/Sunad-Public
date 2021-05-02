@@ -1,0 +1,14 @@
+body,html{
+    direction: rtl;
+    text-align: right;
+}
+.fw-bold {
+    font-weight: 700 !important;
+    text-align: right;
+}
+.alert-danger {
+    color: #942955;
+    background-color: #fddae8;
+    border-color: #fcc7dd;
+    text-align: right;
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+{% extends "frontend/front_base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+  {% block main %}
+    <div class="container position-relative">
+      <div class="row align-items-center">
+        <div class="col-md-12 order-md-1 pt-8">
+          <div class="card">
+            <div class="card-header">
+              {{form.name}}
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">
+                {% for message in messages %}
+                <div class="dj_msg alert alert-danger alert-dismissible fade show" role="alert">
+                  {{message}}
+                </div>
+                {% endfor %}
+              </h5>
+              <p class="card-text">
+                <table class="table table-bordered border-primary display">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="table-light">تقديم الدعم</th>
+                      <th scope="col">
+                        {% if handel.handel_by %}
+                        {{handel.handel_by.first_name}} لقد تبني هذه الحالة
+                        {% else %}
+                        <a href="{% url 'home_page:assign' form.id %}">
+                        <button type="button" class="btn btn-outline-warning">متاح</button>
+                        </a>
+                        {% endif %}
+                      </th>
+                    </tr>
+                  </thead>
+                </table>
+                <table class="table table-bordered border-primary display">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="table-success">قمية الدعم المقدم</th>
+                      <th scope="col">{{form.support | floatformat:2}}</th>
+                      <th scope="col" class="table-success">حالة الطلب</th>
+                      <th scope="col">
+                        {% if form.status == 'hold' %}
+                        بالإنتظار
+                        {% elif form.status == 'verify' %}
+                        تأكيد البيانات
+                        {% elif form.status == 'handling' %}
+                        تتم المساعده
+                        {% elif form.status == 'done' %}
+                        تمت المساعده
+                        {% endif %}
+                      </th>
+                    </tr>
+                  </thead>
+                </table>
+                <table class="table table-bordered border-primary display">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="table-warning">الرقم القومي</th>
+                      <th scope="col">{{form.ssn}}</th>
+                      <th scope="col" class="table-warning">الاسم</th>
+                      <th scope="col">{{form.name}}</th>
+                    </tr>
+                    <tr>
+                      <th scope="col" class="table-warning">العنوان</th>
+                      <th scope="col">{{form.address}}</th>
+                      <th scope="col" class="table-warning">النوع</th>
+                      <th scope="col">
+                        {% if form.gender == 'Male' %}
+                        ذكر
+                        {% elif form.gender == 'Female'%}
+                        أنثي
+                        {% endif %}
+                      </th>
+                    </tr>
+                    <tr>
+                      <th scope="col" class="table-warning">المساعدة المطلوبة</th>
+                      <th scope="col">{{form.help_type}}</th>
+                      <th scope="col" class="table-warning">هل الشريك علي قيد الحياة</th>
+                      <th scope="col">
+                        {% if form.partner_alive == 'Yes' %}
+                        نعم
+                        {% elif form.partner_alive == 'No' %}
+                        لا
+                        {% elif form.partner_alive == 'Single' %}
+                        غير متزوج
+                        {% endif %}
+                      </th>
+                    </tr>
+                    <tr>
+                      <th scope="col" class="table-warning">عدد الأطفال</th>
+                      <th scope="col">{{form.number_children}}</th>
+                      <th scope="col" class="table-warning">عدد الإخوة</th>
+                      <th scope="col">{{form.number_brother}}</th>
+                    </tr>
+                    <tr>
+                      <th scope="col" class="table-warning">تفاصيل اكثر</th>
+                      <th scope="col" colspan="3">{{form.comment}}</th>
+                    </tr>
+                  </thead>
+                </table>
+                <table class="table table-bordered border-primary display">
+                  <thead>
+                    <tr>
+                      {% for attach in attach%}
+                      <th scope="col" class="table-light">
+                        <a href="{{attach.attachments.url}}" target="_blank">
+                          <img src="{{attach.attachments.url}}" class="rounded" alt="" style="width:200px;height:400px;">
+                        </a>
+                      </th>
+                      {% endfor %}
+                    </tr>
+                  </thead>
+                </table>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endblock %}
